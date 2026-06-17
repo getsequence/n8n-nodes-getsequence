@@ -12,7 +12,6 @@ export const activityCardTransactionsDescription: INodeProperties[] = [
 		default: '',
 		displayOptions: { show },
 		description: 'Pod ID that funded the card transactions',
-		routing: { send: { type: 'query', property: 'accountId' } },
 	},
 	{
 		displayName: 'Card ID',
@@ -21,7 +20,6 @@ export const activityCardTransactionsDescription: INodeProperties[] = [
 		default: '',
 		displayOptions: { show },
 		description: 'Optional: filter to a single debit or omni card',
-		routing: { send: { type: 'query', property: 'cardId', value: '={{ $value || undefined }}' } },
 	},
 	...dateRangeFilters(show),
 	...returnAllAndLimit(show),

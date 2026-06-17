@@ -21,9 +21,6 @@ export const ruleTriggerDescription: INodeProperties[] = [
 		displayOptions: { show },
 		description:
 			'Optional amount in cents injected as TRANSFER_AMOUNT. Drives percentage/round_down/top_up actions; ignored by fixed-amount transfers. Leave 0 to use current balances.',
-		routing: {
-			send: { type: 'body', property: 'executeAmount', value: '={{ $value || undefined }}' },
-		},
 	},
 	{
 		displayName: 'Simulation (Dry Run)',
@@ -33,7 +30,6 @@ export const ruleTriggerDescription: INodeProperties[] = [
 		displayOptions: { show },
 		description:
 			'Whether to simulate the rule run without moving real money. On by default for safety; turn off to let the rule move real money.',
-		routing: { send: { type: 'body', property: 'simulation' } },
 	},
 	{
 		displayName:
@@ -47,8 +43,8 @@ export const ruleTriggerDescription: INodeProperties[] = [
 		displayName: 'Idempotency Key',
 		name: 'idempotencyKey',
 		type: 'string',
-		default: '={{ $execution.id + "-" + $itemIndex }}',
+		default: '',
 		displayOptions: { show },
-		description: 'Deduplicates retries within 24h. Max 36 chars.',
+		description: 'Deduplicates retries within 24h. Leave blank to auto-generate. Max 36 chars.',
 	},
 ];

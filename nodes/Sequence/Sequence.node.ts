@@ -1,8 +1,17 @@
-import { NodeConnectionTypes, type INodeType, type INodeTypeDescription } from 'n8n-workflow';
+import {
+	NodeApiError,
+	NodeConnectionTypes,
+	type IExecuteFunctions,
+	type INodeExecutionData,
+	type INodeType,
+	type INodeTypeDescription,
+	type JsonObject,
+} from 'n8n-workflow';
 import { accountDescription } from './resources/account';
 import { activityDescription } from './resources/activity';
 import { ruleDescription } from './resources/rule';
 import { executionDescription } from './resources/execution';
+import { executeOperation } from './router';
 
 export class Sequence implements INodeType {
 	description: INodeTypeDescription = {
@@ -20,13 +29,6 @@ export class Sequence implements INodeType {
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],
 		credentials: [{ name: 'sequenceApi', required: true }],
-		requestDefaults: {
-			baseURL: '={{$credentials.baseUrl}}',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-			},
-		},
 		properties: [
 			{
 				displayName: 'Resource',
@@ -47,4 +49,26 @@ export class Sequence implements INodeType {
 			...executionDescription,
 		],
 	};
+
+	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
+		const items = this.getInputData();
+		const resource = this.getNodeParameter('resource', 0) as string;
+		const operation = this.getNodeParameter('operation', 0) as string;
+		const out: INodeExecutionData[] = [];
+
+		for (let i = 0; i < items.length; i++) {
+			try {
+				const results = await executeOperation(this, resource, operation, i);
+				for (const json of results) out.push({ json, pairedItem: { item: i } });
+			} catch (error) {
+				if (this.continueOnFail()) {
+					out.push({ json: { error: (error as Error).message }, pairedItem: { item: i } });
+					continue;
+				}
+				throw new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i });
+			}
+		}
+
+		return [out];
+	}
 }

@@ -51,11 +51,11 @@ Create Transfer and Trigger Rule are asynchronous. Create Transfer returns a tra
 
 ## Rate limits
 
-The Sequence API allows 100 requests/minute per key and returns `429` when exceeded.
+The Sequence API allows 100 requests/minute per key (token bucket) and returns `429` with a `Retry-After` header when exceeded.
 
-List operations with **Return All** page internally at the maximum size (100 per page), so typical lists stay well under the limit. n8n drives that paging loop itself, so there is **no delay between pages**: a Return All over a very large dataset (more than ~100 pages) can still hit `429`. n8n's node-level **Retry On Fail** does not fix this — it restarts the operation from the first page rather than resuming or pacing it.
+The node handles this for you: every request **retries automatically** on `429`, `5xx`, and network errors (up to 5 attempts), honoring the server's `Retry-After`. List operations with **Return All** page at the maximum size (100 per page) to minimize calls. You don't need to enable n8n's Retry On Fail.
 
-For datasets that large, page manually instead of using Return All: leave **Return All** off, set **Page** and **Limit**, and drive the loop yourself with a Loop/Wait combination (or a Code node) to space out requests.
+For very large lists you'd rather paginate manually, leave **Return All** off and set **Page** + **Limit** to fetch one page at a time.
 
 ## Compatibility
 

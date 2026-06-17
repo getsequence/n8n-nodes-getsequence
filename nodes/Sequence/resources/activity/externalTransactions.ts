@@ -12,13 +12,6 @@ export const activityExternalTransactionsDescription: INodeProperties[] = [
 		default: '',
 		displayOptions: { show },
 		description: 'Comma-separated external account IDs to filter by',
-		routing: {
-			send: {
-				type: 'query',
-				property: 'accountIds',
-				value: '={{ $value.split(",").map((s) => s.trim()).filter((s) => s) }}',
-			},
-		},
 	},
 	{
 		displayName: 'Direction',
@@ -31,7 +24,6 @@ export const activityExternalTransactionsDescription: INodeProperties[] = [
 			{ name: 'Money In', value: 'MONEY_IN' },
 			{ name: 'Money Out', value: 'MONEY_OUT' },
 		],
-		routing: { send: { type: 'query', property: 'direction', value: '={{ $value || undefined }}' } },
 	},
 	{
 		displayName: 'Status',
@@ -44,7 +36,6 @@ export const activityExternalTransactionsDescription: INodeProperties[] = [
 			{ name: 'Complete', value: 'COMPLETE' },
 			{ name: 'Pending', value: 'PENDING' },
 		],
-		routing: { send: { type: 'query', property: 'status', value: '={{ $value || undefined }}' } },
 	},
 	...dateRangeFilters(show),
 	...returnAllAndLimit(show),

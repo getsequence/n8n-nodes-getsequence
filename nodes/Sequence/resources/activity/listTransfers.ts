@@ -13,13 +13,6 @@ export const activityListTransfersDescription: INodeProperties[] = [
 		displayOptions: { show },
 		description:
 			'Comma-separated account IDs. Returns transfers where the source or destination matches any of them. Each must be in the key\'s READ_TRANSFERS resources.',
-		routing: {
-			send: {
-				type: 'query',
-				property: 'accountIds',
-				value: '={{ $value.split(",").map((s) => s.trim()).filter((s) => s) }}',
-			},
-		},
 	},
 	...transferFilters(show),
 	...dateRangeFilters(show),

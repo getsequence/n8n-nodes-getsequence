@@ -21,11 +21,10 @@ export const accountTransfersDescription: INodeProperties[] = [
 		displayOptions: { show },
 		description: 'Match the account as the source, the destination, or either',
 		options: [
+			{ name: 'Destination', value: 'destination' },
 			{ name: 'Either', value: 'either' },
 			{ name: 'Source', value: 'source' },
-			{ name: 'Destination', value: 'destination' },
 		],
-		routing: { send: { type: 'query', property: 'accountRole' } },
 	},
 	...transferFilters(show),
 	...dateRangeFilters(show),
