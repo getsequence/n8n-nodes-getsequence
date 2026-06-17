@@ -14,7 +14,7 @@ Self-hosted n8n: **Settings → Community Nodes → Install** and enter `n8n-nod
 
 Create a **Sequence API** credential:
 
-- **API Key** — a Sequence API key (`sk_...`), sent as `Authorization: Bearer <key>`. Create one in the Sequence app under [Account → API Keys](https://app.getsequence.io/account/api-keys).
+- **API Key** - a Sequence API key (`sk_...`), sent as `Authorization: Bearer <key>`. Create one in the Sequence app under [Account → API Keys](https://app.getsequence.io/account/api-keys).
 
 Keys are scoped. Grant the minimum permissions for the operations you use:
 
@@ -32,12 +32,12 @@ Keys are scoped. Grant the minimum permissions for the operations you use:
 
 ## Operations
 
-- **Account** — Get Many, Get, List Transfers
-- **Transfer** — Create, Get Many, Get
-- **Rule** — Get Many, Get, Trigger
-- **Rule Execution** — Get Many, Get
-- **Card Transaction** — Get Many
-- **External Transaction** — Get Many
+- **Account** - Get Many, Get, List Transfers
+- **Transfer** - Create, Get Many, Get
+- **Rule** - Get Many, Get, Trigger
+- **Rule Execution** - Get Many, Get
+- **Card Transaction** - Get Many
+- **External Transaction** - Get Many
 
 ## Dry run (simulation)
 

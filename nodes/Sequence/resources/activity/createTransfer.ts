@@ -52,7 +52,7 @@ export const activityCreateTransferDescription: INodeProperties[] = [
 	},
 	{
 		displayName:
-			'Simulation is OFF — running this node will move REAL money. The response executionMode will be LIVE.',
+			'Simulation is OFF - running this node will move REAL money. The response executionMode will be LIVE.',
 		name: 'liveTransferWarning',
 		type: 'notice',
 		default: '',

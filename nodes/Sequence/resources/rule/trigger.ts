@@ -33,7 +33,7 @@ export const ruleTriggerDescription: INodeProperties[] = [
 	},
 	{
 		displayName:
-			'Simulation is OFF — triggering this rule may move REAL money. Generated transfers will be LIVE.',
+			'Simulation is OFF - triggering this rule may move REAL money. Generated transfers will be LIVE.',
 		name: 'liveTriggerWarning',
 		type: 'notice',
 		default: '',
