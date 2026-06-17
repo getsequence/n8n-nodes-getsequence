@@ -14,6 +14,7 @@ export const activityDescription: INodeProperties[] = [
 		type: 'options',
 		noDataExpression: true,
 		displayOptions: { show: showOnlyForActivity },
+		// eslint-disable-next-line n8n-nodes-base/node-param-options-type-unsorted-items -- intentional: group transfer ops together, then transaction lists
 		options: [
 			{
 				name: 'Create Transfer',
@@ -28,6 +29,12 @@ export const activityDescription: INodeProperties[] = [
 				description: 'Get a single transfer by ID',
 			},
 			{
+				name: 'List Transfers',
+				value: 'listTransfers',
+				action: 'List transfers',
+				description: 'List transfers for one or more accounts',
+			},
+			{
 				name: 'List Card Transactions',
 				value: 'listCardTransactions',
 				action: 'List card transactions',
@@ -38,12 +45,6 @@ export const activityDescription: INodeProperties[] = [
 				value: 'listExternalTransactions',
 				action: 'List external transactions',
 				description: 'List transactions on connected (Plaid/Finicity) external accounts',
-			},
-			{
-				name: 'List Transfers',
-				value: 'listTransfers',
-				action: 'List transfers',
-				description: 'List transfers for one or more accounts',
 			},
 		],
 		default: 'listTransfers',
