@@ -13,20 +13,15 @@ export class SequenceApi implements ICredentialType {
 
 	icon: Icon = 'file:sequence.svg';
 
-	documentationUrl = 'https://docs.getsequence.io';
+	documentationUrl = 'https://app.getsequence.io/api/platform/';
 
 	properties: INodeProperties[] = [
 		{
-			displayName: 'Environment',
+			displayName: 'Base URL',
 			name: 'baseUrl',
-			type: 'options',
-			options: [
-				{ name: 'Production', value: 'https://api.getsequence.io/platform/v1' },
-				{ name: 'Staging', value: 'https://staging.getsequence.io/api/platform/v1' },
-				{ name: 'Dev', value: 'https://dev.getsequence.io/api/platform/v1' },
-				{ name: 'Local', value: 'http://localhost:4000/platform/v1' },
-			],
+			type: 'string',
 			default: 'https://api.getsequence.io/platform/v1',
+			description: 'Sequence Platform API base URL. Leave as-is for production.',
 		},
 		{
 			displayName: 'API Key',

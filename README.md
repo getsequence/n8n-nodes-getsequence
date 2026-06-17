@@ -1,6 +1,6 @@
 # n8n-nodes-sequence
 
-An [n8n](https://n8n.io) community node for the [Sequence](https://getsequence.io) Platform v1 API.
+An [n8n](https://n8n.io) community node for the [Sequence](https://getsequence.io) Platform v1 API ([API reference](https://app.getsequence.io/api/platform/)).
 
 Automate money movement and read financial data from your Sequence account: list accounts, create ACH transfers, trigger rules, and read transfers, rule executions, card transactions, and external transactions.
 
@@ -14,8 +14,7 @@ Self-hosted n8n: **Settings → Community Nodes → Install** and enter `n8n-nod
 
 Create a **Sequence API** credential:
 
-- **Environment** — Production / Staging / Dev / Local.
-- **API Key** — a Sequence API key (`sk_...`). Sent as `Authorization: Bearer <key>`.
+- **API Key** - a Sequence API key (`sk_...`), sent as `Authorization: Bearer <key>`. Create one in the Sequence app under [Account → API Keys](https://app.getsequence.io/account/api-keys).
 
 Keys are scoped. Grant the minimum permissions for the operations you use:
 
@@ -33,12 +32,12 @@ Keys are scoped. Grant the minimum permissions for the operations you use:
 
 ## Operations
 
-- **Account** — Get Many, Get, List Transfers
-- **Transfer** — Create, Get Many, Get
-- **Rule** — Get Many, Get, Trigger
-- **Rule Execution** — Get Many, Get
-- **Card Transaction** — Get Many
-- **External Transaction** — Get Many
+- **Account** - Get Many, Get, List Transfers
+- **Transfer** - Create, Get Many, Get
+- **Rule** - Get Many, Get, Trigger
+- **Rule Execution** - Get Many, Get
+- **Card Transaction** - Get Many
+- **External Transaction** - Get Many
 
 ## Dry run (simulation)
 
@@ -50,11 +49,19 @@ Keys are scoped. Grant the minimum permissions for the operations you use:
 
 Create Transfer and Trigger Rule are asynchronous. Create Transfer returns a transfer with status `PROCESSING`; Trigger Rule returns an `executionId`. Poll **Transfer → Get** or **Rule Execution → Get** (optionally behind a Wait node) to track the final status.
 
+## Rate limits
+
+The Sequence API allows 100 requests/minute per key (token bucket) and returns `429` with a `Retry-After` header when exceeded.
+
+The node handles this for you: every request **retries automatically** on `429`, `5xx`, and network errors (up to 5 attempts), honoring the server's `Retry-After`. List operations with **Return All** page at the maximum size (100 per page) to minimize calls. You don't need to enable n8n's Retry On Fail.
+
+For very large lists you'd rather paginate manually, leave **Return All** off and set **Page** + **Limit** to fetch one page at a time.
+
 ## Compatibility
 
 Requires n8n with `n8nNodesApiVersion: 1`. Built with `@n8n/node-cli`.
 
 ## Resources
 
-- [Sequence API docs](https://docs.getsequence.io)
+- [Sequence Platform API reference](https://app.getsequence.io/api/platform/)
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)

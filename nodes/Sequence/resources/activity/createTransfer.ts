@@ -1,8 +1,8 @@
 import type { INodeProperties } from 'n8n-workflow';
 
-const show = { operation: ['create'], resource: ['transfer'] };
+const show = { operation: ['createTransfer'], resource: ['activity'] };
 
-export const transferCreateDescription: INodeProperties[] = [
+export const activityCreateTransferDescription: INodeProperties[] = [
 	{
 		displayName: 'Source Account ID',
 		name: 'sourceAccountId',
@@ -11,7 +11,6 @@ export const transferCreateDescription: INodeProperties[] = [
 		default: '',
 		displayOptions: { show },
 		description: 'Account to transfer from',
-		routing: { send: { type: 'body', property: 'sourceAccountId' } },
 	},
 	{
 		displayName: 'Destination Account ID',
@@ -21,7 +20,6 @@ export const transferCreateDescription: INodeProperties[] = [
 		default: '',
 		displayOptions: { show },
 		description: 'Account to transfer to',
-		routing: { send: { type: 'body', property: 'destinationAccountId' } },
 	},
 	{
 		displayName: 'Amount (Cents)',
@@ -32,7 +30,6 @@ export const transferCreateDescription: INodeProperties[] = [
 		typeOptions: { minValue: 100 },
 		displayOptions: { show },
 		description: 'Amount to transfer in cents. Minimum 100 ($1.00).',
-		routing: { send: { type: 'body', property: 'amountInCents' } },
 	},
 	{
 		displayName: 'Statement Description',
@@ -43,7 +40,6 @@ export const transferCreateDescription: INodeProperties[] = [
 		// qmd 0010: the API hard-caps this at 10 chars (ACH/NACHA constraint), letters/digits/spaces only.
 		description:
 			'Short ACH label shown on the bank statement. Max 10 characters, letters/digits/spaces only.',
-		routing: { send: { type: 'body', property: 'description', value: '={{ $value || undefined }}' } },
 	},
 	{
 		displayName: 'Simulation (Dry Run)',
@@ -53,11 +49,10 @@ export const transferCreateDescription: INodeProperties[] = [
 		displayOptions: { show },
 		description:
 			'Whether to simulate the transfer without moving real money. On by default for safety; turn off to move real money. The response is marked executionMode SIMULATION when on.',
-		routing: { send: { type: 'body', property: 'simulation' } },
 	},
 	{
 		displayName:
-			'Simulation is OFF — running this node will move REAL money. The response executionMode will be LIVE.',
+			'Simulation is OFF - running this node will move REAL money. The response executionMode will be LIVE.',
 		name: 'liveTransferWarning',
 		type: 'notice',
 		default: '',
@@ -67,9 +62,9 @@ export const transferCreateDescription: INodeProperties[] = [
 		displayName: 'Idempotency Key',
 		name: 'idempotencyKey',
 		type: 'string',
-		default: '={{ $execution.id + "-" + $itemIndex }}',
+		default: '',
 		displayOptions: { show },
 		description:
-			'Deduplicates retries within 24h. Reusing a key returns the original result instead of moving money twice. Max 36 chars.',
+			'Deduplicates retries within 24h. Reusing a key returns the original result instead of moving money twice. Leave blank to auto-generate a stable key per item. Max 36 chars.',
 	},
 ];

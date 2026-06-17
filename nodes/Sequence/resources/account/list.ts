@@ -12,11 +12,10 @@ export const accountListDescription: INodeProperties[] = [
 		displayOptions: { show },
 		options: [
 			{ name: 'Any', value: '' },
-			{ name: 'Pod', value: 'POD' },
-			{ name: 'Income Source', value: 'INCOME_SOURCE' },
 			{ name: 'External Account', value: 'EXTERNAL_ACCOUNT' },
+			{ name: 'Income Source', value: 'INCOME_SOURCE' },
+			{ name: 'Pod', value: 'POD' },
 		],
-		routing: { send: { type: 'query', property: 'type', value: '={{ $value || undefined }}' } },
 	},
 	{
 		displayName: 'State',
@@ -29,7 +28,6 @@ export const accountListDescription: INodeProperties[] = [
 			{ name: 'Active', value: 'ACTIVE' },
 			{ name: 'All', value: 'ALL' },
 		],
-		routing: { send: { type: 'query', property: 'state' } },
 	},
 	...returnAllAndLimit(show),
 ];

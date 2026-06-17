@@ -1,9 +1,9 @@
 import type { INodeProperties } from 'n8n-workflow';
 import { dateRangeFilters, returnAllAndLimit, transferFilters } from '../shared';
 
-const show = { operation: ['list'], resource: ['transfer'] };
+const show = { operation: ['listTransfers'], resource: ['activity'] };
 
-export const transferListDescription: INodeProperties[] = [
+export const activityListTransfersDescription: INodeProperties[] = [
 	{
 		displayName: 'Account IDs',
 		name: 'accountIds',
@@ -13,13 +13,6 @@ export const transferListDescription: INodeProperties[] = [
 		displayOptions: { show },
 		description:
 			'Comma-separated account IDs. Returns transfers where the source or destination matches any of them. Each must be in the key\'s READ_TRANSFERS resources.',
-		routing: {
-			send: {
-				type: 'query',
-				property: 'accountIds',
-				value: '={{ $value.split(",").map((s) => s.trim()).filter((s) => s) }}',
-			},
-		},
 	},
 	...transferFilters(show),
 	...dateRangeFilters(show),
