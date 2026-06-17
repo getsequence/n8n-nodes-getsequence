@@ -60,7 +60,7 @@ export class Sequence implements INodeType {
 				noDataExpression: true,
 				options: [
 					{ name: 'Account', value: 'account' },
-					{ name: 'Activity & Transfers', value: 'activity' },
+					{ name: 'Activity & Transfer', value: 'activity' },
 					{ name: 'Rule', value: 'rule' },
 					{ name: 'Rule Execution', value: 'execution' },
 				],
