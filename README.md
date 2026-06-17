@@ -49,6 +49,10 @@ Keys are scoped. Grant the minimum permissions for the operations you use:
 
 Create Transfer and Trigger Rule are asynchronous. Create Transfer returns a transfer with status `PROCESSING`; Trigger Rule returns an `executionId`. Poll **Transfer → Get** or **Rule Execution → Get** (optionally behind a Wait node) to track the final status.
 
+## Rate limits
+
+The Sequence API allows 100 requests/minute per key and returns `429` with a `Retry-After` header when exceeded. List operations with **Return All** page at the maximum size (100 per page) to minimize calls. For heavy or critical workflows, follow n8n's [rate-limit guidance](https://docs.n8n.io/integrations/builtin/rate-limits/): enable the node's **Retry On Fail** (Settings → Retry On Fail) with **Wait Between Tries** set above the rate-limit window, or use **Batching** to space out requests.
+
 ## Compatibility
 
 Requires n8n with `n8nNodesApiVersion: 1`. Built with `@n8n/node-cli`.
