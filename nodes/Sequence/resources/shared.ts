@@ -69,6 +69,17 @@ export function returnAllAndLimit(show: ShowCondition): INodeProperties[] {
 				output: { maxResults: '={{ $value }}' },
 			},
 		},
+		{
+			displayName: 'Page',
+			name: 'page',
+			type: 'number',
+			default: 1,
+			typeOptions: { minValue: 1 },
+			displayOptions: { show: { ...show, returnAll: [false] } },
+			description:
+				'Which 1-based page to fetch. Use with a Loop/Wait combination to paginate manually and pace requests under the rate limit.',
+			routing: { send: { type: 'query', property: 'page' } },
+		},
 	];
 }
 
