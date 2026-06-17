@@ -167,7 +167,7 @@ export async function executeOperation(
 			const filters: IDataObject = {};
 			addOptional(filters, 'status', ctx.getNodeParameter('status', i, ''));
 			addOptional(filters, 'triggerType', ctx.getNodeParameter('triggerType', i, ''));
-			addOptional(filters, 'executionMode', ctx.getNodeParameter('executionMode', i, 'LIVE'));
+			addOptional(filters, 'executionMode', ctx.getNodeParameter('executionMode', i, 'ALL'));
 			addDate(filters, 'from', ctx.getNodeParameter('from', i, ''));
 			addDate(filters, 'to', ctx.getNodeParameter('to', i, ''));
 			return listResults(ctx, i, `/rules/${ruleId}/executions`, filters);

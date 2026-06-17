@@ -35,9 +35,8 @@ export const executionListDescription: INodeProperties[] = [
 		displayOptions: { show },
 		options: [
 			{ name: 'Any', value: '' },
-			{ name: 'Manual', value: 'MANUAL' },
 			{ name: 'On Funds Transferred', value: 'ON_FUNDS_TRANSFERRED' },
-			{ name: 'Remote API', value: 'REMOTE_API' },
+			{ name: 'On-Demand', value: 'MANUAL' },
 			{ name: 'Scheduled', value: 'SCHEDULED' },
 			{ name: 'Sequence API', value: 'SEQUENCE_API' },
 		],
@@ -46,9 +45,9 @@ export const executionListDescription: INodeProperties[] = [
 		displayName: 'Execution Mode',
 		name: 'executionMode',
 		type: 'options',
-		default: 'LIVE',
+		default: 'ALL',
 		displayOptions: { show },
-		description: 'LIVE returns real executions; SIMULATION returns dry-runs; ALL returns both',
+		description: 'ALL returns both real and dry-run executions; LIVE only real; SIMULATION only dry-runs',
 		options: [
 			{ name: 'All', value: 'ALL' },
 			{ name: 'Live', value: 'LIVE' },

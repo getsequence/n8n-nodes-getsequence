@@ -13,6 +13,29 @@ import { ruleDescription } from './resources/rule';
 import { executionDescription } from './resources/execution';
 import { executeOperation } from './router';
 
+interface SequenceErrorEnvelope {
+	error?: { code?: string; message?: string };
+}
+
+/**
+ * Surfaces the API's `{ error: { code, message } }` envelope so users see the
+ * real reason (e.g. "This rule cannot be accessed using the API") instead of a
+ * generic "Forbidden". The body sits under response.data or response.body
+ * depending on the HTTP client path.
+ */
+function apiErrorOverride(error: unknown): { message?: string; description?: string } {
+	const e = error as {
+		response?: { data?: SequenceErrorEnvelope; body?: SequenceErrorEnvelope };
+		cause?: { response?: { data?: SequenceErrorEnvelope; body?: SequenceErrorEnvelope } };
+	};
+	const env =
+		e?.response?.data?.error ??
+		e?.response?.body?.error ??
+		e?.cause?.response?.data?.error ??
+		e?.cause?.response?.body?.error;
+	return env?.message ? { message: env.message, description: env.code } : {};
+}
+
 export class Sequence implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Sequence',
@@ -65,7 +88,10 @@ export class Sequence implements INodeType {
 					out.push({ json: { error: (error as Error).message }, pairedItem: { item: i } });
 					continue;
 				}
-				throw new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i });
+				throw new NodeApiError(this.getNode(), error as JsonObject, {
+					itemIndex: i,
+					...apiErrorOverride(error),
+				});
 			}
 		}
 
