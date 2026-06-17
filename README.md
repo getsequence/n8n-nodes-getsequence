@@ -1,6 +1,6 @@
 # n8n-nodes-sequence
 
-An [n8n](https://n8n.io) community node for the [Sequence](https://getsequence.io) Platform v1 API.
+An [n8n](https://n8n.io) community node for the [Sequence](https://getsequence.io) Platform v1 API ([API reference](https://app.getsequence.io/api/platform/)).
 
 Automate money movement and read financial data from your Sequence account: list accounts, create ACH transfers, trigger rules, and read transfers, rule executions, card transactions, and external transactions.
 
@@ -14,8 +14,7 @@ Self-hosted n8n: **Settings → Community Nodes → Install** and enter `n8n-nod
 
 Create a **Sequence API** credential:
 
-- **Environment** — Production / Staging / Dev / Local.
-- **API Key** — a Sequence API key (`sk_...`). Sent as `Authorization: Bearer <key>`.
+- **API Key** — a Sequence API key (`sk_...`), sent as `Authorization: Bearer <key>`. Create one in the Sequence app under [Account → API Keys](https://app.getsequence.io/account/api-keys).
 
 Keys are scoped. Grant the minimum permissions for the operations you use:
 
@@ -56,5 +55,5 @@ Requires n8n with `n8nNodesApiVersion: 1`. Built with `@n8n/node-cli`.
 
 ## Resources
 
-- [Sequence API docs](https://docs.getsequence.io)
+- [Sequence Platform API reference](https://app.getsequence.io/api/platform/)
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)

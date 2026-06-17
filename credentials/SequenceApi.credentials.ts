@@ -13,7 +13,7 @@ export class SequenceApi implements ICredentialType {
 
 	icon: Icon = 'file:sequence.svg';
 
-	documentationUrl = 'https://docs.getsequence.io';
+	documentationUrl = 'https://app.getsequence.io/api/platform/';
 
 	properties: INodeProperties[] = [
 		{
