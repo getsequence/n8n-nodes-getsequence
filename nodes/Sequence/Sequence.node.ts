@@ -68,9 +68,8 @@ function apiErrorOverride(
 	if (env?.message) {
 		if (env.code === 'ACCESS_DENIED' && requiredScope) {
 			return {
-				message: `Your API key is missing the "${requiredScope}" permission`,
-				description:
-					'Grant it to your key in the Sequence app: https://app.getsequence.io/account/api-keys',
+				message: `This operation requires the "${requiredScope}" permission for this entity on your API key`,
+				description: 'Grant it in the Sequence app: https://app.getsequence.io/account/api-keys',
 			};
 		}
 		const hint = env.code ? ERROR_CODE_HINTS[env.code] : undefined;
