@@ -17,6 +17,12 @@ interface SequenceErrorEnvelope {
 	error?: { code?: string; message?: string };
 }
 
+// Actionable guidance shown as the error description for specific API error codes.
+const ERROR_CODE_HINTS: Record<string, string> = {
+	INVALID_RULE:
+		'This rule type can only be managed in the Sequence app. Open it at https://app.getsequence.io to view or run it.',
+};
+
 /**
  * Surfaces the API's `{ error: { code, message } }` envelope so users see the
  * real reason (e.g. "This rule cannot be accessed using the API") instead of a
@@ -38,7 +44,10 @@ function apiErrorOverride(error: unknown): { message?: string; description?: str
 		e?.response?.body?.error ??
 		e?.cause?.response?.data?.error ??
 		e?.cause?.response?.body?.error;
-	if (env?.message) return { message: env.message, description: env.code };
+	if (env?.message) {
+		const hint = env.code ? ERROR_CODE_HINTS[env.code] : undefined;
+		return { message: env.message, description: hint ?? env.code };
+	}
 	if (typeof e?.description === 'string' && e.description.length > 0) {
 		return { message: e.description };
 	}
