@@ -1,10 +1,8 @@
 import { NodeConnectionTypes, type INodeType, type INodeTypeDescription } from 'n8n-workflow';
 import { accountDescription } from './resources/account';
-import { transferDescription } from './resources/transfer';
+import { activityDescription } from './resources/activity';
 import { ruleDescription } from './resources/rule';
 import { executionDescription } from './resources/execution';
-import { cardTransactionDescription } from './resources/cardTransaction';
-import { externalTransactionDescription } from './resources/externalTransaction';
 
 export class Sequence implements INodeType {
 	description: INodeTypeDescription = {
@@ -37,20 +35,16 @@ export class Sequence implements INodeType {
 				noDataExpression: true,
 				options: [
 					{ name: 'Account', value: 'account' },
-					{ name: 'Card Transaction', value: 'cardTransaction' },
-					{ name: 'External Transaction', value: 'externalTransaction' },
+					{ name: 'Activity', value: 'activity' },
 					{ name: 'Rule', value: 'rule' },
 					{ name: 'Rule Execution', value: 'execution' },
-					{ name: 'Transfer', value: 'transfer' },
 				],
 				default: 'account',
 			},
 			...accountDescription,
-			...transferDescription,
+			...activityDescription,
 			...ruleDescription,
 			...executionDescription,
-			...cardTransactionDescription,
-			...externalTransactionDescription,
 		],
 	};
 }

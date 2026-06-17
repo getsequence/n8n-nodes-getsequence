@@ -1,29 +1,9 @@
 import type { INodeProperties } from 'n8n-workflow';
-import { dateRangeFilters, listOutput, returnAllAndLimit } from '../shared';
+import { dateRangeFilters, returnAllAndLimit } from '../shared';
 
-const show = { resource: ['cardTransaction'] };
+const show = { operation: ['listCardTransactions'], resource: ['activity'] };
 
-export const cardTransactionDescription: INodeProperties[] = [
-	{
-		displayName: 'Operation',
-		name: 'operation',
-		type: 'options',
-		noDataExpression: true,
-		displayOptions: { show },
-		options: [
-			{
-				name: 'Get Many',
-				value: 'list',
-				action: 'List card transactions',
-				description: 'List settled debit/omni card purchases and refunds funded by a pod',
-				routing: {
-					request: { method: 'GET', url: '/card-transactions' },
-					output: listOutput,
-				},
-			},
-		],
-		default: 'list',
-	},
+export const activityCardTransactionsDescription: INodeProperties[] = [
 	{
 		displayName: 'Account ID',
 		name: 'accountId',

@@ -1,9 +1,9 @@
 import type { INodeProperties } from 'n8n-workflow';
 import { dateRangeFilters, returnAllAndLimit, transferFilters } from '../shared';
 
-const show = { operation: ['list'], resource: ['transfer'] };
+const show = { operation: ['listTransfers'], resource: ['activity'] };
 
-export const transferListDescription: INodeProperties[] = [
+export const activityListTransfersDescription: INodeProperties[] = [
 	{
 		displayName: 'Account IDs',
 		name: 'accountIds',
