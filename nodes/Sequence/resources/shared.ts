@@ -33,7 +33,13 @@ export function returnAllAndLimit(show: ShowCondition): INodeProperties[] {
 			displayOptions: { show },
 			description: 'Whether to return all results or only up to a given limit',
 			routing: {
-				send: { paginate: '={{ $value }}' },
+				send: {
+					paginate: '={{ $value }}',
+					// Page through at the max page size (100) to minimize round-trips and rate-limit pressure.
+					type: 'query',
+					property: 'pageSize',
+					value: '={{ $value ? 100 : undefined }}',
+				},
 				operations: {
 					pagination: {
 						type: 'generic',
