@@ -60,7 +60,8 @@ export class Sequence implements INodeType {
 				noDataExpression: true,
 				options: [
 					{ name: 'Account', value: 'account' },
-					{ name: 'Activity & Transfer', value: 'activity' },
+					// eslint-disable-next-line n8n-nodes-base/node-param-resource-with-plural-option -- intentional: this resource groups transfers + transactions
+					{ name: 'Activity & Transfers', value: 'activity' },
 					{ name: 'Rule', value: 'rule' },
 					{ name: 'Rule Execution', value: 'execution' },
 				],
