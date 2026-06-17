@@ -66,10 +66,14 @@ function apiErrorOverride(
 		e?.cause?.response?.data?.error ??
 		e?.cause?.response?.body?.error;
 	if (env?.message) {
-		let hint = env.code ? ERROR_CODE_HINTS[env.code] : undefined;
 		if (env.code === 'ACCESS_DENIED' && requiredScope) {
-			hint = `This operation requires the "${requiredScope}" permission on your API key. Grant it in the Sequence app: https://app.getsequence.io/account/api-keys`;
+			return {
+				message: `Your API key is missing the "${requiredScope}" permission`,
+				description:
+					'Grant it to your key in the Sequence app: https://app.getsequence.io/account/api-keys',
+			};
 		}
+		const hint = env.code ? ERROR_CODE_HINTS[env.code] : undefined;
 		return { message: env.message, description: hint ?? env.code };
 	}
 	if (typeof e?.description === 'string' && e.description.length > 0) {
