@@ -25,15 +25,24 @@ interface SequenceErrorEnvelope {
  */
 function apiErrorOverride(error: unknown): { message?: string; description?: string } {
 	const e = error as {
+		// httpRequestWithAuthentication wraps failures in a NodeApiError, which stores
+		// the parsed body at `context.data` and the picked message at `description`.
+		context?: { data?: SequenceErrorEnvelope };
+		description?: string;
 		response?: { data?: SequenceErrorEnvelope; body?: SequenceErrorEnvelope };
 		cause?: { response?: { data?: SequenceErrorEnvelope; body?: SequenceErrorEnvelope } };
 	};
 	const env =
+		e?.context?.data?.error ??
 		e?.response?.data?.error ??
 		e?.response?.body?.error ??
 		e?.cause?.response?.data?.error ??
 		e?.cause?.response?.body?.error;
-	return env?.message ? { message: env.message, description: env.code } : {};
+	if (env?.message) return { message: env.message, description: env.code };
+	if (typeof e?.description === 'string' && e.description.length > 0) {
+		return { message: e.description };
+	}
+	return {};
 }
 
 export class Sequence implements INodeType {
