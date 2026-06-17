@@ -23,13 +23,34 @@ const ERROR_CODE_HINTS: Record<string, string> = {
 		'This rule type can only be managed in the Sequence app. Open it at https://app.getsequence.io to view or run it.',
 };
 
+// Scope each operation needs (mirrors the API's x-required-scope), used to make
+// ACCESS_DENIED errors actionable: "this operation requires the X permission".
+const REQUIRED_SCOPE: Record<string, string> = {
+	'account:list': 'READ_ACCOUNTS',
+	'account:get': 'READ_ACCOUNTS',
+	'account:transfers': 'READ_TRANSFERS',
+	'activity:createTransfer': 'MANUAL_TRANSFER',
+	'activity:getTransfer': 'READ_TRANSFERS',
+	'activity:listTransfers': 'READ_TRANSFERS',
+	'activity:listCardTransactions': 'READ_TRANSFERS',
+	'activity:listExternalTransactions': 'READ_TRANSFERS',
+	'rule:list': 'READ_RULES',
+	'rule:get': 'READ_RULES',
+	'rule:trigger': 'TRIGGER_RULES',
+	'execution:list': 'READ_RULES',
+	'execution:get': 'READ_RULES',
+};
+
 /**
  * Surfaces the API's `{ error: { code, message } }` envelope so users see the
  * real reason (e.g. "This rule cannot be accessed using the API") instead of a
  * generic "Forbidden". The body sits under response.data or response.body
  * depending on the HTTP client path.
  */
-function apiErrorOverride(error: unknown): { message?: string; description?: string } {
+function apiErrorOverride(
+	error: unknown,
+	requiredScope?: string,
+): { message?: string; description?: string } {
 	const e = error as {
 		// httpRequestWithAuthentication wraps failures in a NodeApiError, which stores
 		// the parsed body at `context.data` and the picked message at `description`.
@@ -45,7 +66,10 @@ function apiErrorOverride(error: unknown): { message?: string; description?: str
 		e?.cause?.response?.data?.error ??
 		e?.cause?.response?.body?.error;
 	if (env?.message) {
-		const hint = env.code ? ERROR_CODE_HINTS[env.code] : undefined;
+		let hint = env.code ? ERROR_CODE_HINTS[env.code] : undefined;
+		if (env.code === 'ACCESS_DENIED' && requiredScope) {
+			hint = `This operation requires the "${requiredScope}" permission on your API key. Grant it in the Sequence app: https://app.getsequence.io/account/api-keys`;
+		}
 		return { message: env.message, description: hint ?? env.code };
 	}
 	if (typeof e?.description === 'string' && e.description.length > 0) {
@@ -96,6 +120,7 @@ export class Sequence implements INodeType {
 		const items = this.getInputData();
 		const resource = this.getNodeParameter('resource', 0) as string;
 		const operation = this.getNodeParameter('operation', 0) as string;
+		const requiredScope = REQUIRED_SCOPE[`${resource}:${operation}`];
 		const out: INodeExecutionData[] = [];
 
 		for (let i = 0; i < items.length; i++) {
@@ -109,7 +134,7 @@ export class Sequence implements INodeType {
 				}
 				throw new NodeApiError(this.getNode(), error as JsonObject, {
 					itemIndex: i,
-					...apiErrorOverride(error),
+					...apiErrorOverride(error, requiredScope),
 				});
 			}
 		}
