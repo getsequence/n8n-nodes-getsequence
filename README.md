@@ -1,4 +1,4 @@
-# n8n-nodes-sequence
+# n8n-nodes-getsequence
 
 An [n8n](https://n8n.io) community node for the [Sequence](https://getsequence.io) Platform v1 API ([API reference](https://app.getsequence.io/api/platform/)).
 
@@ -8,7 +8,7 @@ Automate money movement and read financial data from your Sequence account: list
 
 ## Installation
 
-Self-hosted n8n: **Settings → Community Nodes → Install** and enter `n8n-nodes-sequence`. See the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/).
+Self-hosted n8n: **Settings → Community Nodes → Install** and enter `n8n-nodes-getsequence`. See the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/).
 
 ## Credentials
 
