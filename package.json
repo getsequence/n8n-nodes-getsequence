@@ -1,9 +1,9 @@
 {
-  "name": "n8n-nodes-sequence",
+  "name": "n8n-nodes-getsequence",
   "version": "0.1.0",
   "description": "n8n community node for the Sequence Platform v1 API (accounts, transfers, rules, transactions)",
   "license": "MIT",
-  "homepage": "https://github.com/getsequence/n8n-nodes-sequence",
+  "homepage": "https://github.com/getsequence/n8n-nodes-getsequence",
   "keywords": [
     "n8n-community-node-package",
     "sequence",
@@ -14,7 +14,7 @@
   "author": { "name": "Sequence", "email": "engineering@getsequence.io" },
   "repository": {
     "type": "git",
-    "url": "https://github.com/getsequence/n8n-nodes-sequence.git"
+    "url": "https://github.com/getsequence/n8n-nodes-getsequence.git"
   },
   "scripts": {
     "build": "n8n-node build",
