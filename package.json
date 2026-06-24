@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-getsequence",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "n8n community node for the Sequence Platform v1 API (accounts, transfers, rules, transactions)",
   "license": "MIT",
   "homepage": "https://github.com/getsequence/n8n-nodes-getsequence",
@@ -11,7 +11,7 @@
     "banking",
     "fintech"
   ],
-  "author": { "name": "Sequence", "email": "engineering@getsequence.io" },
+  "author": { "name": "Sequence", "email": "sigal@getsequence.io" },
   "repository": {
     "type": "git",
     "url": "https://github.com/getsequence/n8n-nodes-getsequence.git"
