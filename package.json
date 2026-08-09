@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-getsequence",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "n8n community node for the Sequence Platform v1 API (accounts, transfers, rules, transactions)",
   "license": "MIT",
   "homepage": "https://github.com/getsequence/n8n-nodes-getsequence",
