@@ -24,20 +24,20 @@ Keys are scoped. Grant the minimum permissions for the operations you use:
 | Account → List Transfers | `READ_TRANSFERS` |
 | Transfer → Get Many / Get | `READ_TRANSFERS` |
 | Transfer → Create | `MANUAL_TRANSFER` |
+| Card Transaction → Get Many | `READ_TRANSFERS` |
+| External Transaction → Get Many | `READ_TRANSFERS` |
 | Rule → Get Many / Get | `READ_RULES` |
 | Rule → Trigger | `TRIGGER_RULES` |
 | Rule Execution → Get Many / Get | `READ_RULES` |
-| Card Transaction → Get Many | `READ_TRANSFERS` |
-| External Transaction → Get Many | `READ_TRANSFERS` |
 
 ## Operations
 
-- **Account** - Get Many, Get, List Transfers
-- **Transfer** - Create, Get Many, Get
-- **Rule** - Get Many, Get, Trigger
-- **Rule Execution** - Get Many, Get
+- **Account** - Get, Get Many, List Transfers
 - **Card Transaction** - Get Many
 - **External Transaction** - Get Many
+- **Rule** - Get, Get Many, Trigger
+- **Rule Execution** - Get, Get Many
+- **Transfer** - Create, Get, Get Many
 
 ## Dry run (simulation)
 

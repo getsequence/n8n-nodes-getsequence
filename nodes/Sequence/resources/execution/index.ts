@@ -13,16 +13,16 @@ export const executionDescription: INodeProperties[] = [
 		displayOptions: { show: showOnlyForExecutions },
 		options: [
 			{
-				name: 'Get Many',
-				value: 'list',
-				action: 'List rule executions',
-				description: 'List executions for a rule',
-			},
-			{
 				name: 'Get',
 				value: 'get',
 				action: 'Get a rule execution',
 				description: 'Get a single rule execution with its outcome and transfer IDs',
+			},
+			{
+				name: 'Get Many',
+				value: 'list',
+				action: 'List rule executions',
+				description: 'List executions for a rule',
 			},
 		],
 		default: 'list',

@@ -14,16 +14,16 @@ export const accountDescription: INodeProperties[] = [
 		displayOptions: { show: showOnlyForAccounts },
 		options: [
 			{
-				name: 'Get Many',
-				value: 'list',
-				action: 'List accounts',
-				description: 'List income sources, pods, and external accounts',
-			},
-			{
 				name: 'Get',
 				value: 'get',
 				action: 'Get an account',
 				description: 'Get a single account with balance',
+			},
+			{
+				name: 'Get Many',
+				value: 'list',
+				action: 'List accounts',
+				description: 'List income sources, pods, and external accounts',
 			},
 			{
 				name: 'List Transfers',
