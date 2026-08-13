@@ -1,8 +1,8 @@
 import type { INodeProperties } from 'n8n-workflow';
 
-const show = { operation: ['createTransfer'], resource: ['activity'] };
+const show = { operation: ['create'], resource: ['transfer'] };
 
-export const activityCreateTransferDescription: INodeProperties[] = [
+export const transferCreateDescription: INodeProperties[] = [
 	{
 		displayName: 'Source Account ID',
 		name: 'sourceAccountId',

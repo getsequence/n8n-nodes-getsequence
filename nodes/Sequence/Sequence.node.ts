@@ -8,9 +8,11 @@ import {
 	type JsonObject,
 } from 'n8n-workflow';
 import { accountDescription } from './resources/account';
-import { activityDescription } from './resources/activity';
+import { cardTransactionDescription } from './resources/cardTransaction';
+import { externalTransactionDescription } from './resources/externalTransaction';
 import { ruleDescription } from './resources/rule';
 import { executionDescription } from './resources/execution';
+import { transferDescription } from './resources/transfer';
 import { executeOperation } from './router';
 
 interface SequenceErrorEnvelope {
@@ -29,11 +31,11 @@ const REQUIRED_SCOPE: Record<string, string> = {
 	'account:list': 'READ_ACCOUNTS',
 	'account:get': 'READ_ACCOUNTS',
 	'account:transfers': 'READ_TRANSFERS',
-	'activity:createTransfer': 'MANUAL_TRANSFER',
-	'activity:getTransfer': 'READ_TRANSFERS',
-	'activity:listTransfers': 'READ_TRANSFERS',
-	'activity:listCardTransactions': 'READ_TRANSFERS',
-	'activity:listExternalTransactions': 'READ_TRANSFERS',
+	'transfer:create': 'MANUAL_TRANSFER',
+	'transfer:get': 'READ_TRANSFERS',
+	'transfer:list': 'READ_TRANSFERS',
+	'cardTransaction:list': 'READ_TRANSFERS',
+	'externalTransaction:list': 'READ_TRANSFERS',
 	'rule:list': 'READ_RULES',
 	'rule:get': 'READ_RULES',
 	'rule:trigger': 'TRIGGER_RULES',
@@ -105,17 +107,20 @@ export class Sequence implements INodeType {
 				noDataExpression: true,
 				options: [
 					{ name: 'Account', value: 'account' },
-					// eslint-disable-next-line n8n-nodes-base/node-param-resource-with-plural-option -- intentional: this resource groups transfers + transactions
-					{ name: 'Activity & Transfers', value: 'activity' },
+					{ name: 'Card Transaction', value: 'cardTransaction' },
+					{ name: 'External Transaction', value: 'externalTransaction' },
 					{ name: 'Rule', value: 'rule' },
 					{ name: 'Rule Execution', value: 'execution' },
+					{ name: 'Transfer', value: 'transfer' },
 				],
 				default: 'account',
 			},
 			...accountDescription,
-			...activityDescription,
+			...cardTransactionDescription,
+			...externalTransactionDescription,
 			...ruleDescription,
 			...executionDescription,
+			...transferDescription,
 		],
 	};
 

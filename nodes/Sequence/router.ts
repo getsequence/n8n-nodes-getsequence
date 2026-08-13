@@ -90,8 +90,8 @@ export async function executeOperation(
 		}
 	}
 
-	if (resource === 'activity') {
-		if (operation === 'createTransfer') {
+	if (resource === 'transfer') {
+		if (operation === 'create') {
 			const body: IDataObject = {
 				sourceAccountId: ctx.getNodeParameter('sourceAccountId', i),
 				destinationAccountId: ctx.getNodeParameter('destinationAccountId', i),
@@ -104,24 +104,30 @@ export async function executeOperation(
 			});
 			return [response.data];
 		}
-		if (operation === 'getTransfer') {
+		if (operation === 'get') {
 			const id = ctx.getNodeParameter('transferId', i) as string;
 			const response = await sequenceApiRequest.call(ctx, 'GET', `/transfers/${id}`);
 			return [response.data];
 		}
-		if (operation === 'listTransfers') {
+		if (operation === 'list') {
 			const filters = readTransferFilters(ctx, i);
 			filters.accountIds = csvToArray(ctx.getNodeParameter('accountIds', i, '') as string);
 			return listResults(ctx, i, '/transfers', filters);
 		}
-		if (operation === 'listCardTransactions') {
+	}
+
+	if (resource === 'cardTransaction') {
+		if (operation === 'list') {
 			const filters: IDataObject = { accountId: ctx.getNodeParameter('accountId', i) };
 			addOptional(filters, 'cardId', ctx.getNodeParameter('cardId', i, ''));
 			addDate(filters, 'from', ctx.getNodeParameter('from', i, ''));
 			addDate(filters, 'to', ctx.getNodeParameter('to', i, ''));
 			return listResults(ctx, i, '/card-transactions', filters);
 		}
-		if (operation === 'listExternalTransactions') {
+	}
+
+	if (resource === 'externalTransaction') {
+		if (operation === 'list') {
 			const filters: IDataObject = {
 				accountIds: csvToArray(ctx.getNodeParameter('accountIds', i, '') as string),
 			};

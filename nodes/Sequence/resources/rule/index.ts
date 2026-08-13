@@ -14,16 +14,16 @@ export const ruleDescription: INodeProperties[] = [
 		displayOptions: { show: showOnlyForRules },
 		options: [
 			{
-				name: 'Get Many',
-				value: 'list',
-				action: 'List rules',
-				description: 'List rules (compact summary)',
-			},
-			{
 				name: 'Get',
 				value: 'get',
 				action: 'Get a rule',
 				description: 'Get a rule with its steps, conditions, and actions',
+			},
+			{
+				name: 'Get Many',
+				value: 'list',
+				action: 'List rules',
+				description: 'List rules (compact summary)',
 			},
 			{
 				name: 'Trigger',
